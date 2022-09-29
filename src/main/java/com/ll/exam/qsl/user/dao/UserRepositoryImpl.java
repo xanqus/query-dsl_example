@@ -15,7 +15,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
     */
     @Override
     public SiteUser getQslUser(Long id){
-        return (SiteUser) jpaQueryFactory
+        return jpaQueryFactory
                 .select(QSiteUser.siteUser)
                 .from(QSiteUser.siteUser)
                 .where(QSiteUser.siteUser.id.eq(1L))

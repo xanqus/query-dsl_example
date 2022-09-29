@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 @SpringBootTest
 class UserRepositoryTests {
 
@@ -23,4 +25,11 @@ class UserRepositoryTests {
 		userRepository.saveAll(Arrays.asList(u1, u2));
 	}
 
+	@Test
+	@DisplayName("1번 회원을 Qsl로 가져오기")
+	void test2() {
+		SiteUser u1 = userRepository.getQslUser(1L);
+
+		assertThat(u1.getId()).isEqualTo(1L);
+	}
 }
