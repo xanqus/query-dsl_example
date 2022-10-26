@@ -10,6 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import javax.transaction.Transactional;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -56,5 +57,12 @@ class UserRepositoryTests {
 	void test5() {
 		SiteUser u1 = userRepository.getQslUserOrderByIdAscOne();
 		assertThat(u1.getId()).isEqualTo(1L);
+	}
+
+	@Test
+	@DisplayName("전체 회원")
+	void test6() {
+		List<SiteUser> users = userRepository.getQslUsersOrderByIdAsc();
+		System.out.println(users.get(0).getId());
 	}
 }

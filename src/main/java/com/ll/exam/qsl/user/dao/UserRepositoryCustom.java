@@ -2,6 +2,8 @@ package com.ll.exam.qsl.user.dao;
 
 import com.ll.exam.qsl.user.entity.SiteUser;
 
+import java.util.List;
+
 public interface UserRepositoryCustom {
 
 
@@ -10,4 +12,6 @@ public interface UserRepositoryCustom {
     long getQslCount();
 
     SiteUser getQslUserOrderByIdAscOne();
+
+    List<SiteUser> getQslUsersOrderByIdAsc();
 }
