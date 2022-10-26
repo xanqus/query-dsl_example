@@ -50,4 +50,11 @@ class UserRepositoryTests {
 		long count = userRepository.getQslCount();
 		assertThat(count == 2L);
 	}
+
+	@Test
+	@DisplayName("가장 오래된 회원 1명")
+	void test5() {
+		SiteUser u1 = userRepository.getQslUserOrderByIdAscOne();
+		assertThat(u1.getId()).isEqualTo(1L);
+	}
 }
