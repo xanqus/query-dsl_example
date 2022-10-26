@@ -43,4 +43,11 @@ class UserRepositoryTests {
 
 		assertThat(u1.getId()).isEqualTo(1L);
 	}
+
+	@Test
+	@DisplayName("모든 회원 수")
+	void test3() {
+		long count = userRepository.getQslCount();
+		assertThat(count == 2L);
+	}
 }

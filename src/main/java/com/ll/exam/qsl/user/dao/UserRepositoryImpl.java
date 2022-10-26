@@ -1,6 +1,5 @@
 package com.ll.exam.qsl.user.dao;
 
-import com.ll.exam.qsl.user.entity.QSiteUser;
 import com.ll.exam.qsl.user.entity.SiteUser;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +20,14 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
                 .select(siteUser)
                 .from(siteUser)
                 .where(siteUser.id.eq(id))
+                .fetchOne();
+    }
+
+    @Override
+    public long getQslCount() {
+        return jpaQueryFactory
+                .select(siteUser.count())
+                .from(siteUser)
                 .fetchOne();
     }
 
