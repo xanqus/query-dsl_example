@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
 import javax.transaction.Transactional;
@@ -64,5 +65,19 @@ class UserRepositoryTests {
 	void test6() {
 		List<SiteUser> users = userRepository.getQslUsersOrderByIdAsc();
 		System.out.println(users.get(0).getId());
+	}
+
+	@Test
+	@DisplayName("회원에게 관심사 등록")
+	@Rollback(false)
+	void t7() {
+		SiteUser u2 = userRepository.getQslUser(2L);
+
+		u2.addInterestKeywordContent("축구");
+		u2.addInterestKeywordContent("게임");
+		u2.addInterestKeywordContent("헬스");
+		u2.addInterestKeywordContent("헬스");
+
+		userRepository.save(u2);
 	}
 }
