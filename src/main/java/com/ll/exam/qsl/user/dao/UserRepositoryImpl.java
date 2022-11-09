@@ -1,11 +1,14 @@
 package com.ll.exam.qsl.user.dao;
 
+import com.ll.exam.qsl.interestKeyword.domain.InterestKeyword;
+import com.ll.exam.qsl.interestKeyword.domain.QInterestKeyword;
 import com.ll.exam.qsl.user.entity.SiteUser;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+import static com.ll.exam.qsl.interestKeyword.domain.QInterestKeyword.interestKeyword;
 import static com.ll.exam.qsl.user.entity.QSiteUser.*;
 
 @RequiredArgsConstructor
@@ -49,6 +52,19 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
                 .select(siteUser)
                 .from(siteUser)
                 .orderBy(siteUser.id.asc())
+                .fetch();
+    }
+
+    @Override
+    public List<SiteUser> getQslUsersByInterestKeyword(String keywordContent) {
+
+
+        return jpaQueryFactory
+                .selectFrom(siteUser)
+                .innerJoin(siteUser.interestKeywords, interestKeyword)
+                .where(
+                        interestKeyword.content.eq(keywordContent)
+                )
                 .fetch();
     }
 

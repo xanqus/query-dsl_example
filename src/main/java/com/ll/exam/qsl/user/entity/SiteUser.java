@@ -34,4 +34,6 @@ public class SiteUser {
     public void addInterestKeywordContent(String keywordContent) {
         interestKeywords.add(new InterestKeyword(keywordContent));
     }
+
+
 }

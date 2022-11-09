@@ -1,4 +1,4 @@
-package com.ll.exam.qsl;
+package com.ll.exam.qsl.repositoryTests;
 
 import com.ll.exam.qsl.user.dao.UserRepository;
 import com.ll.exam.qsl.user.entity.SiteUser;
@@ -25,17 +25,17 @@ class UserRepositoryTests {
 	@Test
 	@DisplayName("회원 생성")
 	void test1() {
-		SiteUser u3 = SiteUser.builder()
-				.username("user3")
+		SiteUser u9 = SiteUser.builder()
+				.username("user9")
 				.password("{noop}1234")
-				.email("user3@test.com")
+				.email("user9@test.com")
 				.build();
-		SiteUser u4 = SiteUser.builder()
-				.username("user4")
+		SiteUser u10 = SiteUser.builder()
+				.username("user10")
 				.password("{noop}1234")
-				.email("user4@test.com")
+				.email("user10@test.com")
 				.build();
-		userRepository.saveAll(Arrays.asList(u3, u4));
+		userRepository.saveAll(Arrays.asList(u9, u10));
 	}
 
 	@Test
@@ -71,6 +71,14 @@ class UserRepositoryTests {
 	@DisplayName("회원에게 관심사 등록")
 	@Rollback(false)
 	void t7() {
+
+		SiteUser u1 = userRepository.getQslUser(1L);
+
+		u1.addInterestKeywordContent("축구");
+		u1.addInterestKeywordContent("농구");
+
+		userRepository.save(u1);
+
 		SiteUser u2 = userRepository.getQslUser(2L);
 
 		u2.addInterestKeywordContent("축구");
@@ -79,5 +87,27 @@ class UserRepositoryTests {
 		u2.addInterestKeywordContent("헬스");
 
 		userRepository.save(u2);
+
+
+	}
+
+	@Test
+	@DisplayName("축구에 관심이 있는 회원들 검색")
+	void t8() {
+		List<SiteUser> users = userRepository.getQslUsersByInterestKeyword("축구");
+
+		System.out.println(users.size());
+
+		assertThat(users.size())
+				.isEqualTo(2);
+	}
+
+	@Test
+	@DisplayName("noqsl")
+	void t9() {
+		List<SiteUser> users = userRepository.findByInterestKeywords_content("축구");
+
+		assertThat(users.size())
+				.isEqualTo(2);
 	}
 }
